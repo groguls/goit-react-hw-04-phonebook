@@ -47,7 +47,7 @@ export const PageWrapper = styled.div`
   height: 100vh;
 `;
 
-export const Div = styled.div`
+export const ContactListWraper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: stretch;
