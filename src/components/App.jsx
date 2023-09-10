@@ -1,5 +1,4 @@
 import { useEffect, useReducer } from 'react';
-import { nanoid } from 'nanoid';
 import {
   ContactListWraper,
   GlobalStyle,
@@ -10,60 +9,9 @@ import {
 import { ContactForm } from './ContactForm/ContactForm';
 import { ContactList } from './ContactList/ContactList';
 import { Filter } from './Filter/Filter';
-
-const getInitialContacts = () => {
-  const savedContacts = localStorage.getItem('ContactsApp');
-  return savedContacts !== null ? JSON.parse(savedContacts) : [];
-};
-
-const contactsReducer = (state, action) => {
-  switch (action.type) {
-    case 'added': {
-      const { name, number } = action.newContact;
-      const contact = {
-        id: nanoid(),
-        name,
-        number,
-      };
-      const isNameInContacts = state.contacts.some(
-        contact => contact.name.toLowerCase() === name.toLowerCase()
-      );
-
-      if (isNameInContacts) {
-        alert(`${name} is alredy in contacts`);
-        return;
-      }
-      return {
-        ...state,
-        contacts: [contact, ...state.contacts],
-      };
-    }
-    case 'deleted': {
-      return {
-        ...state,
-        contacts: state.contacts.filter(
-          contact => contact.id !== action.contactId
-        ),
-      };
-    }
-    case 'filtered': {
-      return {
-        ...state,
-        filter: action.filter,
-      };
-    }
-
-    default:
-      break;
-  }
-};
+import { contactsReducer, initialState } from '../contactsReducer';
 
 export const App = () => {
-  const initialState = {
-    contacts: getInitialContacts(),
-    filter: '',
-  };
-
   const [state, dispatch] = useReducer(contactsReducer, initialState);
 
   useEffect(() => {
