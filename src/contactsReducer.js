@@ -19,14 +19,6 @@ export const contactsReducer = (state, action) => {
         name,
         number,
       };
-      const isNameInContacts = state.contacts.some(
-        contact => contact.name.toLowerCase() === name.toLowerCase()
-      );
-
-      if (isNameInContacts) {
-        alert(`${name} is alredy in contacts`);
-        return;
-      }
       return {
         ...state,
         contacts: [contact, ...state.contacts],

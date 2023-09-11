@@ -25,6 +25,15 @@ export const App = () => {
   }, [state.contacts]);
 
   const addContact = contactData => {
+    const { name } = contactData;
+    const isNameInContacts = state.contacts.some(
+      contact => contact.name.toLowerCase() === name.toLowerCase()
+    );
+    if (isNameInContacts) {
+      alert(`${name} is alredy in contacts`);
+      return;
+    }
+
     dispatch({
       type: 'added',
       newContact: contactData,
